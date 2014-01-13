@@ -8,5 +8,9 @@ namespace GameOfLifeKata
 {
     public class GameOfLife
     {
+        public object MakeGrid()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
