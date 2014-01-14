@@ -105,6 +105,27 @@ namespace GameOfLifeKata
                             else
                                 KillCell(newGrid, i, j);
                         }
+                        else if (IsBottomRow(max, i))
+                        {
+                            var liveNeighbors = 0;
+
+                            if (grid[i, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i, j + 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j + 1] == 1)
+                                liveNeighbors++;
+
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        }
+
                     }
                     else
                     {
@@ -117,6 +138,11 @@ namespace GameOfLifeKata
         private static Boolean IsTopRow(Int32 i)
         {
             return i == 0;
+        }
+        
+        private static Boolean IsBottomRow(Int32 max, Int32 i)
+        {
+            return i == max;
         }
 
         private static Boolean IsLeftSide(Int32 j)
