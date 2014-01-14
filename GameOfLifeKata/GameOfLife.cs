@@ -85,6 +85,26 @@ namespace GameOfLifeKata
                             else
                                 KillCell(newGrid, i, j);
                         }
+                        else if (IsRightSide(max, j))
+                        {
+                            var liveNeighbors = 0;
+
+                            if (grid[i, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j] == 1)
+                                liveNeighbors++;
+
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        }
                     }
                     else
                     {
@@ -102,6 +122,11 @@ namespace GameOfLifeKata
         private static Boolean IsLeftSide(Int32 j)
         {
             return j == 0;
+        }
+
+        private static Boolean IsRightSide(Int32 max, Int32 j)
+        {
+            return j == max;
         }
 
         private static Int32 KillCell(Int32[,] newGrid, Int32 i, Int32 j)
