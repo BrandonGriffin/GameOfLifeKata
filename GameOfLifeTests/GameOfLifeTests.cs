@@ -169,5 +169,20 @@ namespace GameOfLifeKata.Tests
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void CellWithExactlyTwoOrLessNeighborsDies()
+        {
+            var grid = new Int32[,]{ { 0, 0, 0 },
+                                     { 1, 1, 0 },
+                                     { 0, 0, 1 } };
+
+            var actual = game.MakeGrid(grid, 3);
+            var expected = new Int32[,] { { 0, 0, 0 },
+                                          { 0, 1, 0 },
+                                          { 0, 1, 0 } };
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
