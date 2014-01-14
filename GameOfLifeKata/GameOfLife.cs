@@ -38,6 +38,13 @@ namespace GameOfLifeKata
                             else
                                 newGrid[i, j] = 0;
                         }
+                        else if (IsBottomRightCorner(max, i, j))
+                        {
+                            if (grid[i - 1, j - 1] == 1 && grid[i - 1, j] == 1 && grid[i, j - 1] == 1)
+                                newGrid[i, j] = 1;
+                            else
+                                newGrid[i, j] = 0;
+                        }
                     }
                     else
                     {
@@ -70,6 +77,11 @@ namespace GameOfLifeKata
         private static Boolean IsBottomLeftCorner(Int32 max, Int32 i, Int32 j)
         {
             return i == max && j == 0;
+        }
+
+        private static Boolean IsBottomRightCorner(Int32 max, Int32 i, Int32 j)
+        {
+            return i == max && j == max;
         }
     }
 }
