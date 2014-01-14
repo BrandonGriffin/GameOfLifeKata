@@ -10,8 +10,6 @@ namespace GameOfLifeKata
     {
         public Int32[,] MakeGrid(Int32[,] grid, Int32 size)
         {
-            //var grid = new Int32[size, size];
-            //Random random = new Random();
             var max = size - 1;
             var newGrid = new Int32[3, 3];
 
