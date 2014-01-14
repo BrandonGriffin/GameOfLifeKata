@@ -34,16 +34,56 @@ namespace GameOfLifeKata
                         else if (IsBottomLeftCorner(max, i, j))
                         {
                             if (grid[i, j + 1] == 1 && grid[i - 1, j + 1] == 1 && grid[i - 1, j] == 1)
-                                newGrid[i, j] = 1;
+                                BringCellToLife(newGrid, i, j);
                             else
-                                newGrid[i, j] = 0;
+                                KillCell(newGrid, i, j);
                         }
                         else if (IsBottomRightCorner(max, i, j))
                         {
                             if (grid[i - 1, j - 1] == 1 && grid[i - 1, j] == 1 && grid[i, j - 1] == 1)
-                                newGrid[i, j] = 1;
+                                BringCellToLife(newGrid, i, j);
                             else
-                                newGrid[i, j] = 0;
+                                KillCell(newGrid, i, j);
+                        }
+                        else if (IsTopRow(i))
+                        {
+                            var liveNeighbors = 0;
+                            
+                            if (grid[i, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i, j + 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j - 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j + 1] == 1)
+                                liveNeighbors++;
+
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        }
+                        else if (IsLeftSide(j))
+                        {
+                            var liveNeighbors = 0;
+
+                            if (grid[i, j + 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j + 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j + 1] == 1)
+                                liveNeighbors++;
+                            if (grid[i + 1, j] == 1)
+                                liveNeighbors++;
+                            if (grid[i - 1, j] == 1)
+                                liveNeighbors++;
+
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
                         }
                     }
                     else
@@ -52,6 +92,16 @@ namespace GameOfLifeKata
                     }
                     
             return newGrid;
+        }
+
+        private static Boolean IsTopRow(Int32 i)
+        {
+            return i == 0;
+        }
+
+        private static Boolean IsLeftSide(Int32 j)
+        {
+            return j == 0;
         }
 
         private static Int32 KillCell(Int32[,] newGrid, Int32 i, Int32 j)
