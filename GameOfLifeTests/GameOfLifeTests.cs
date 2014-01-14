@@ -79,5 +79,20 @@ namespace GameOfLifeKata.Tests
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void BottomLeftCellWithExactly3NeightborsComesToLife()
+        {
+            var grid = new Int32[,]{ { 0, 0, 0 },
+                                     { 1, 1, 0 },
+                                     { 0, 1, 0 } };
+
+            var actual = game.MakeGrid(grid, 3);
+            var expected = new Int32[,] { { 0, 0, 0 },
+                                          { 1, 1, 0 },
+                                          { 1, 1, 0 } };
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }

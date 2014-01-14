@@ -20,10 +20,17 @@ namespace GameOfLifeKata
                         if (IsTopRightCorner(max, i, j))
                         {
                             if (grid[i, j - 1] == 1 && grid[i + 1, j - 1] == 1 && grid[i + 1, j] == 1)
-                                newGrid[i, j] = 1;
+                                BringCellToLife(newGrid, i, j);
                             else
-                                newGrid[i, j] = 0;
-                        }            
+                                KillCell(newGrid, i, j);
+                        }
+                        else if (IsTopLeftCorner(i, j))
+                        {
+                            if (grid[i, j + 1] == 1 && grid[i + 1, j + 1] == 1 && grid[i + 1, j] == 1)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        }
                     }
                     else
                     {
@@ -33,9 +40,24 @@ namespace GameOfLifeKata
             return newGrid;
         }
 
+        private static Int32 KillCell(Int32[,] newGrid, Int32 i, Int32 j)
+        {
+            return newGrid[i, j] = 0;
+        }
+
+        private static Int32 BringCellToLife(Int32[,] newGrid, Int32 i, Int32 j)
+        {
+            return newGrid[i, j] = 1;
+        }
+
         private static Boolean IsTopRightCorner(Int32 max, Int32 i, Int32 j)
         {
             return j == max && i == 0;
+        }
+
+        private static Boolean IsTopLeftCorner(Int32 i, Int32 j)
+        {
+            return i == 0 && j == 0;
         }
     }
 }
