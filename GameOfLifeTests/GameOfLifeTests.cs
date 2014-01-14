@@ -130,12 +130,27 @@ namespace GameOfLifeKata.Tests
         {
             var grid = new Int32[,]{ { 0, 1, 0 },
                                      { 0, 1, 0 },
-                                     { 0, 1, 0 } };
+                                     { 1, 0, 0 } };
 
             var actual = game.MakeGrid(grid, 3);
             var expected = new Int32[,] { { 0, 1, 0 },
                                           { 1, 1, 0 },
-                                          { 0, 1, 0 } };
+                                          { 1, 0, 0 } };
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void RightSideCellWithExactly3NeightborsComesToLife()
+        {
+            var grid = new Int32[,]{ { 0, 1, 0 },
+                                     { 0, 1, 0 },
+                                     { 0, 0, 1 } };
+
+            var actual = game.MakeGrid(grid, 3);
+            var expected = new Int32[,] { { 0, 1, 0 },
+                                          { 0, 1, 1 },
+                                          { 0, 0, 1 } };
 
             Assert.That(actual, Is.EqualTo(expected));
         }
