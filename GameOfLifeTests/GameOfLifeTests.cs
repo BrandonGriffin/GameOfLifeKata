@@ -10,13 +10,59 @@ namespace GameOfLifeKata.Tests
     [TestFixture]
     public class GameOfLifeTests
     {
-        [Test]
-        public void GameShouldReturnAGrid()
-        {
-            var game = new GameOfLife();
-            var actual = game.MakeGrid();
+        private GameOfLife game;
 
-            Assert.That(actual, Is.EqualTo(new Int32[,]{}));
+        [SetUp]
+        public void SetUp()
+        {
+            game = new GameOfLife();
+        }
+
+        //[Ignore]
+        //[Test]
+        //public void GridSizeShouldBePassedToMakeGrid()
+        //{
+        //    var actual = game.MakeGrid(3);
+        //    Assert.That(actual, Is.EqualTo(new Int32[3, 3]));
+        //}
+
+        //[Ignore]
+        //[Test]
+        //public void MakeGridShouldReturnAGridWithAllSpacesFilledWithA0()
+        //{
+        //    var actual = game.MakeGrid(3);
+        //    var expected = new Int32[3, 3];
+
+        //    Assert.That(actual, Is.EqualTo(expected));
+        //}
+
+        //[Ignore]
+        //[Test]
+        //public void MakeGridShouldRandomlyFillTheGridWith1and0()
+        //{
+        //    var actual = game.MakeGrid(3);
+        //    var shouldFail = false;
+
+        //    foreach (var cell in actual)
+        //        if (cell != 1 && cell != 0)
+        //            shouldFail = true;
+
+        //    Assert.That(shouldFail, Is.EqualTo(false));
+        //}
+
+        [Test]
+        public void TopRightCellWithExactly3NeightborsComesToLife()
+        {
+            var grid = new Int32[,]{ { 0, 1, 0 },
+                                     { 0, 1, 1 },
+                                     { 0, 0, 0 } };
+
+            var actual = game.MakeGrid(grid, 3);
+            var expected = new Int32[,] { { 0, 1, 1 },
+                                          { 0, 1, 1 },
+                                          { 0, 0, 0 } };
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }
