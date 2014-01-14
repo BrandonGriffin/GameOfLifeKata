@@ -15,123 +15,219 @@ namespace GameOfLifeKata
 
             for (var i = 0; i < size; i++)
                 for (var j = 0; j < size; j++)
-                    if (grid[i, j] == 0)
+                {
+                    if (IsTopRightCorner(max, i, j))
                     {
-                        if (IsTopRightCorner(max, i, j))
-                        {
-                            if (grid[i, j - 1] == 1 && grid[i + 1, j - 1] == 1 && grid[i + 1, j] == 1)
-                                BringCellToLife(newGrid, i, j);
-                            else
-                                KillCell(newGrid, i, j);
-                        }
-                        else if (IsTopLeftCorner(i, j))
-                        {
-                            if (grid[i, j + 1] == 1 && grid[i + 1, j + 1] == 1 && grid[i + 1, j] == 1)
-                                BringCellToLife(newGrid, i, j);
-                            else
-                                KillCell(newGrid, i, j);
-                        }
-                        else if (IsBottomLeftCorner(max, i, j))
-                        {
-                            if (grid[i, j + 1] == 1 && grid[i - 1, j + 1] == 1 && grid[i - 1, j] == 1)
-                                BringCellToLife(newGrid, i, j);
-                            else
-                                KillCell(newGrid, i, j);
-                        }
-                        else if (IsBottomRightCorner(max, i, j))
-                        {
-                            if (grid[i - 1, j - 1] == 1 && grid[i - 1, j] == 1 && grid[i, j - 1] == 1)
-                                BringCellToLife(newGrid, i, j);
-                            else
-                                KillCell(newGrid, i, j);
-                        }
-                        else if (IsTopRow(i))
-                        {
-                            var liveNeighbors = 0;
-                            
-                            if (grid[i, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i, j + 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j + 1] == 1)
-                                liveNeighbors++;
+                        var liveNeighbors = 0;
 
+                        if (grid[i, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j] == 1)
+                            liveNeighbors++;
+
+                        if(grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
+                            if (liveNeighbors ==3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                    }
+                    else if (IsTopLeftCorner(i, j))
+                    {
+                        var liveNeighbors = 0;
+
+                        if (grid[i, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j] == 1)
+                            liveNeighbors++;
+
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
                             if (liveNeighbors == 3)
                                 BringCellToLife(newGrid, i, j);
                             else
                                 KillCell(newGrid, i, j);
-                        }
-                        else if (IsLeftSide(j))
-                        {
-                            var liveNeighbors = 0;
+                    }
+                    else if (IsBottomLeftCorner(max, i, j))
+                    {
+                        var liveNeighbors = 0;
 
-                            if (grid[i, j + 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j + 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j + 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j] == 1)
-                                liveNeighbors++;
+                        if (grid[i, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j] == 1)
+                            liveNeighbors++;
 
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
                             if (liveNeighbors == 3)
                                 BringCellToLife(newGrid, i, j);
                             else
                                 KillCell(newGrid, i, j);
-                        }
-                        else if (IsRightSide(max, j))
-                        {
-                            var liveNeighbors = 0;
+                    }
+                    else if (IsBottomRightCorner(max, i, j))
+                    {
+                        var liveNeighbors = 0;
 
-                            if (grid[i, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i + 1, j] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j] == 1)
-                                liveNeighbors++;
+                        if (grid[i - 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j] == 1)
+                            liveNeighbors++;
+                        if (grid[i, j - 1] == 1)
+                            liveNeighbors++;
 
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
                             if (liveNeighbors == 3)
                                 BringCellToLife(newGrid, i, j);
                             else
                                 KillCell(newGrid, i, j);
-                        }
-                        else if (IsBottomRow(max, i))
-                        {
-                            var liveNeighbors = 0;
+                    }
+                    else if (IsTopRow(i))
+                    {
+                        var liveNeighbors = 0;
 
-                            if (grid[i, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i, j + 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j - 1] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j] == 1)
-                                liveNeighbors++;
-                            if (grid[i - 1, j + 1] == 1)
-                                liveNeighbors++;
+                        if (grid[i, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j + 1] == 1)
+                            liveNeighbors++;
 
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
                             if (liveNeighbors == 3)
                                 BringCellToLife(newGrid, i, j);
                             else
                                 KillCell(newGrid, i, j);
-                        }
+                    }
+                    else if (IsLeftSide(j))
+                    {
+                        var liveNeighbors = 0;
 
+                        if (grid[i, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j] == 1)
+                            liveNeighbors++;
+
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                    }
+                    else if (IsRightSide(max, j))
+                    {
+                        var liveNeighbors = 0;
+
+                        if (grid[i, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i + 1, j] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j] == 1)
+                            liveNeighbors++;
+
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                    }
+                    else if (IsBottomRow(max, i))
+                    {
+                        var liveNeighbors = 0;
+
+                        if (grid[i, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i, j + 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j - 1] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j] == 1)
+                            liveNeighbors++;
+                        if (grid[i - 1, j + 1] == 1)
+                            liveNeighbors++;
+
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
                     }
                     else
                     {
-                        newGrid[i, j] = grid[i, j];
+                        var liveNeighbors = 0;
+
+                        foreach (var cell in grid)
+                            if (cell == 1)
+                                liveNeighbors++;
+
+                        if (grid[i, j] == 1)
+                            if (liveNeighbors == 2 || liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
+                        else
+                            if (liveNeighbors == 3)
+                                BringCellToLife(newGrid, i, j);
+                            else
+                                KillCell(newGrid, i, j);
                     }
-                    
+                }
             return newGrid;
         }
 

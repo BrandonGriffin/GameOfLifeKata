@@ -133,9 +133,9 @@ namespace GameOfLifeKata.Tests
                                      { 1, 0, 0 } };
 
             var actual = game.MakeGrid(grid, 3);
-            var expected = new Int32[,] { { 0, 1, 0 },
+            var expected = new Int32[,] { { 0, 0, 0 },
                                           { 1, 1, 0 },
-                                          { 1, 0, 0 } };
+                                          { 0, 0, 0 } };
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -148,9 +148,9 @@ namespace GameOfLifeKata.Tests
                                      { 0, 0, 1 } };
 
             var actual = game.MakeGrid(grid, 3);
-            var expected = new Int32[,] { { 0, 1, 0 },
+            var expected = new Int32[,] { { 0, 0, 0 },
                                           { 0, 1, 1 },
-                                          { 0, 0, 1 } };
+                                          { 0, 0, 0 } };
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -164,8 +164,8 @@ namespace GameOfLifeKata.Tests
 
             var actual = game.MakeGrid(grid, 3);
             var expected = new Int32[,] { { 0, 0, 0 },
-                                          { 1, 1, 0 },
-                                          { 0, 1, 1 } };
+                                          { 0, 1, 0 },
+                                          { 0, 1, 0 } };
 
             Assert.That(actual, Is.EqualTo(expected));
         }
