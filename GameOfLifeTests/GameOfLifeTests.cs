@@ -6,14 +6,6 @@ namespace GameOfLifeKata.Tests
     [TestFixture]
     public class GameOfLifeTests
     {
-        private GameOfLife game;
-
-        [SetUp]
-        public void SetUp()
-        {
-            game = new GameOfLife();
-        }
-
         [Test]
         public void TopRightCellWithExactly3NeightborsComesToLife()
         {
@@ -24,7 +16,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 1, 1 },
@@ -45,7 +38,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 1, 1, 0 },
@@ -66,7 +60,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 1, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 0, 0 },
@@ -87,7 +82,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 1, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 0, 0 },
@@ -108,7 +104,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 1, 1 },
@@ -129,7 +126,8 @@ namespace GameOfLifeKata.Tests
                 { 1, 0, 0 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             {
                 { 0, 0, 0 },
@@ -150,7 +148,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 1 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             {
                 { 0, 0, 0 },
@@ -171,7 +170,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 1 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             {
                 { 0, 0, 0 },
@@ -192,7 +192,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 1 } 
             };
 
-            var actual = game.CheckGrid(grid, 3);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 0, 0 },
@@ -215,7 +216,8 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 1, 0, 0 }
             };
 
-            var actual = game.CheckGrid(grid, 5);
+            var game = new GameOfLife(grid);
+            var actual = game.CheckGrid();
             var expected = new Int32[,] 
             { 
                 { 0, 0, 1, 1, 1 },
@@ -223,6 +225,30 @@ namespace GameOfLifeKata.Tests
                 { 0, 0, 1, 1, 0 },
                 { 0, 1, 1, 0, 0 },
                 { 0, 1, 0, 0, 0 }
+            };
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void TwoIterationsOfAGridReturnsTheCorrectResult()
+        {
+            var grid = new Int32[,]
+            { 
+                { 0, 0, 0 },
+                { 1, 1, 0 },
+                { 0, 0, 1 } 
+            };
+
+            var game = new GameOfLife(grid);
+            var firstRun = game.CheckGrid();
+            var actual = game.CheckGrid();
+
+            var expected = new Int32[,] 
+            { 
+                { 0, 0, 0 },
+                { 0, 0, 0 },
+                { 0, 0, 0 } 
             };
 
             Assert.That(actual, Is.EqualTo(expected));

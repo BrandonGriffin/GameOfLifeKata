@@ -4,91 +4,108 @@ namespace GameOfLifeKata
 {
     public class GameOfLife
     {
-        private static Int32[,] newGrid;
+        private Int32[,] newGrid;
+        private Int32[,] grid;
+        private Int32 numberOfRows;
+        private Int32 numberOfColumns;
 
-        public Int32[,] CheckGrid(Int32[,] grid, Int32 size)
+        public GameOfLife(Int32[,] grid)
         {
-            var max = size - 1;
-            newGrid = new Int32[size, size];
+            this.grid = grid;
+        }
 
-            for (var x = 0; x < size; x++)
+        public Int32[,] CheckGrid()
+        {
+            numberOfRows = grid.GetLength(0);
+            numberOfColumns = grid.GetLength(1);
+
+            newGrid = new Int32[numberOfColumns, numberOfRows];
+
+            for (var x = 0; x < numberOfColumns; x++)
             {
-                for (var y = 0; y < size; y++)
+                for (var y = 0; y < numberOfRows; y++)
                 {
-                    var liveNeighbors = 0;                
+                    var liveNeighbors = 0;
 
-                    if (LeftNeighborIsAlive(grid, x, y))
+                    if (LeftNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (RightNeighborIsAlive(grid, max, x, y))
+                    if (RightNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (TopLeftNeightIsAlive(grid, x, y))
+                    if (TopLeftNeightIsAlive(x, y))
                         liveNeighbors++;
-                    if (TopNeighborIsAlive(grid, x, y))
+                    if (TopNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (TopRightNeighborIsAlive(grid, max, x, y))
+                    if (TopRightNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (BottomLeftNeighborIsAlive(grid, max, x, y))
+                    if (BottomLeftNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (BottomNeighborIsAlive(grid, max, x, y))
+                    if (BottomNeighborIsAlive(x, y))
                         liveNeighbors++;
-                    if (BottomRightNeighborIsAlive(grid, max, x, y))
+                    if (BottomRightNeighborIsAlive(x, y))
                         liveNeighbors++;
 
-                    SetCellStatus(grid, x, y, liveNeighbors);
+                    var value = grid[x, y];
+                    newGrid[x, y] = GetCellValue(value, liveNeighbors);
                 }
             }
 
-            return newGrid;
+            grid = newGrid;
+            return grid;
         }
-        
-        private static Boolean LeftNeighborIsAlive(Int32[,] grid, Int32 x, Int32 y)
+
+        private Boolean LeftNeighborIsAlive(Int32 x, Int32 y)
         {
             return y != 0 && grid[x, y - 1] == 1;
         }
-        
-        private static Boolean RightNeighborIsAlive(Int32[,] grid, Int32 max, Int32 x, Int32 y)
+
+        private Boolean RightNeighborIsAlive(Int32 x, Int32 y)
         {
-            return y != max && grid[x, y + 1] == 1;
+            return y != numberOfRows - 1 && grid[x, y + 1] == 1;
         }
- 
-        private static Boolean TopLeftNeightIsAlive(Int32[,] grid, Int32 x, Int32 y)
+
+        private Boolean TopLeftNeightIsAlive(Int32 x, Int32 y)
         {
             return x != 0 && y != 0 && grid[x - 1, y - 1] == 1;
         }
- 
-        private static Boolean TopNeighborIsAlive(Int32[,] grid, Int32 x, Int32 y)
+
+        private Boolean TopNeighborIsAlive(Int32 x, Int32 y)
         {
             return x != 0 && grid[x - 1, y] == 1;
         }
 
-        private static Boolean TopRightNeighborIsAlive(Int32[,] grid, Int32 max, Int32 x, Int32 y)
+        private Boolean TopRightNeighborIsAlive(Int32 x, Int32 y)
         {
-            return x != 0 && y != max && grid[x - 1, y + 1] == 1;
+            return x != 0 && y != numberOfRows - 1 && grid[x - 1, y + 1] == 1;
         }
 
-        private static Boolean BottomLeftNeighborIsAlive(Int32[,] grid, Int32 max, Int32 x, Int32 y)
+        private Boolean BottomLeftNeighborIsAlive(Int32 x, Int32 y)
         {
-            return x != max && y != 0 && grid[x + 1, y - 1] == 1;
+            return x != numberOfColumns - 1 && y != 0 && grid[x + 1, y - 1] == 1;
         }
 
-        private static Boolean BottomNeighborIsAlive(Int32[,] grid, Int32 max, Int32 x, Int32 y)
+        private Boolean BottomNeighborIsAlive(Int32 x, Int32 y)
         {
-            return x != max && grid[x + 1, y] == 1;
+            return x != numberOfColumns - 1 && grid[x + 1, y] == 1;
         }
 
-       private static Boolean BottomRightNeighborIsAlive(Int32[,] grid, Int32 max, Int32 x, Int32 y)
+        private Boolean BottomRightNeighborIsAlive(Int32 x, Int32 y)
         {
-            return x != max && y != max && grid[x + 1, y + 1] == 1;
+            return x != numberOfColumns - 1 && y != numberOfRows - 1 && grid[x + 1, y + 1] == 1;
         }
 
-        private static void SetCellStatus(Int32[,] grid, Int32 x, Int32 y, Int32 liveNeighbors)
+        private Int32 GetCellValue(Int32 value, Int32 liveNeighbors)
         {
-            if (grid[x, y] == 1 && (liveNeighbors == 2 || liveNeighbors == 3))
-                newGrid[x, y] = 1;
+            if (CellIsAlive(value) && (liveNeighbors == 2 || liveNeighbors == 3))
+                return 1;
             else if (liveNeighbors == 3)
-                newGrid[x, y] = 1;
+                return 1;
             else
-                newGrid[x, y] = 0;
+                return 0;
+        }
+
+        private Boolean CellIsAlive(Int32 value)
+        {
+            return value == 1;
         }
     }
 }
