@@ -235,9 +235,9 @@ namespace GameOfLifeKata.Tests
         {
             var grid = new Int32[,]
             { 
-                { 0, 0, 0 },
-                { 1, 1, 0 },
-                { 0, 0, 1 } 
+                { 1, 1, 1 },
+                { 1, 0, 0 },
+                { 0, 1, 1 } 
             };
 
             var game = new GameOfLife(grid);
@@ -246,8 +246,8 @@ namespace GameOfLifeKata.Tests
 
             var expected = new Int32[,] 
             { 
-                { 0, 0, 0 },
-                { 0, 0, 0 },
+                { 1, 1, 0 },
+                { 1, 0, 0 },
                 { 0, 0, 0 } 
             };
 

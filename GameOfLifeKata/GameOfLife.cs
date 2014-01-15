@@ -49,7 +49,7 @@ namespace GameOfLifeKata
                 }
             }
 
-            grid = newGrid;
+            Array.Copy(newGrid, grid, newGrid.Length);
             return grid;
         }
 
